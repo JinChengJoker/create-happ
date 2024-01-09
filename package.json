@@ -1,0 +1,10 @@
+{
+  "name": "create-happ",
+  "version": "1.0.0",
+  "author": "Jin Cheng",
+  "main": "index.js",
+  "bin": {
+    "create-happ": "./index.js"
+  },
+  "license": "MIT"
+}
