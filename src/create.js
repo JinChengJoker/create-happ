@@ -42,7 +42,12 @@ const init = async () => {
   try {
     await $`git clone ${template.repoUrl} ${appName} --depth=1`
     await $`rm -rf ./${appName}/.git`
-    console.log(chalk.gray('✅ Generate success!'))
+    console.log(chalk.gray('✨ Generate success!'))
+    console.log(chalk.gray(`\nNext run:\n`))
+    console.log(`  cd ${appName}`)
+    console.log(`  yarn install`)
+    console.log(`  yarn dev`)
+    console.log()
   } catch (error) {
     console.error(error)
     process.exit(1);
