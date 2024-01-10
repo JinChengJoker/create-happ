@@ -23,12 +23,12 @@ const init = async () => {
   ]);
   const { appName } = response
 
-  console.log(chalk.gray('🚚 Clone repo...'))
+  console.log(chalk.gray('🚚 Generating...'))
 
   try {
     await $`git clone ${codingUrl} ${appName} --depth=1`
     await $`rm -rf ./${appName}/.git`
-    console.log(chalk.gray('✅ Clone success!'))
+    console.log(chalk.gray('✅ Generate success!'))
   } catch (error) {
     console.error(error)
     process.exit(1);
