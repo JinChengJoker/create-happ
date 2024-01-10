@@ -1,6 +1,5 @@
 #!/usr/bin/env node
-
-const { init } = require('./src/create')
+import { init } from './src/create.js'
 
 const currentNodeVersion = process.versions.node;
 const semver = currentNodeVersion.split('.');
