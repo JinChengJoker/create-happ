@@ -71,7 +71,10 @@ const init = async () => {
 
   try {
     await $`git clone ${template.repoUrl} ${dirName} --depth=1`
-    await $`rm -rf ./${dirName}/.git`
+
+    // 删除 .git
+    const gitDirPath = path.join(projectPath, '.git')
+    fs.removeSync(gitDirPath)
 
     // 更新 package.json
     const pkgPath = path.join(projectPath, 'package.json')
@@ -95,7 +98,7 @@ const init = async () => {
     console.log(`  yarn dev`)
     console.log('\n');
   } catch (error) {
-    await $`rm -rf ./${dirName}`
+    fs.removeSync(projectPath)
     console.log(chalk.red(`✖ ${error.message}`))
     process.exit(1);
   }

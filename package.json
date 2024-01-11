@@ -1,6 +1,6 @@
 {
   "name": "create-happ",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "author": "Jin Cheng",
   "type": "module",
   "main": "index.js",
