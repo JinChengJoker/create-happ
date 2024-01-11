@@ -36,15 +36,16 @@ const init = async () => {
   ]);
   const { appType, appName } = response
   const template = templatesConfig.find(t => t.key === appType)
+  const dirName = /-web$/.test(appName) ? appName : `${appName}-web`
 
   console.log(chalk.gray('🚚 Generating...'))
 
   try {
-    await $`git clone ${template.repoUrl} ${appName} --depth=1`
-    await $`rm -rf ./${appName}/.git`
+    await $`git clone ${template.repoUrl} ${dirName} --depth=1`
+    await $`rm -rf ./${dirName}/.git`
     console.log(chalk.gray('✨ Generate success!'))
     console.log(chalk.gray(`\nNext run:\n`))
-    console.log(`  cd ${appName}`)
+    console.log(`  cd ${dirName}`)
     console.log(`  yarn install`)
     console.log(`  yarn dev`)
     console.log()
