@@ -57,6 +57,12 @@ const init = async () => {
   try {
     await $`git clone ${template.repoUrl} ${dirName} --depth=1`
     await $`rm -rf ./${dirName}/.git`
+
+    const pkgPath = path.join(projectPath, `package.json`)
+    const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'))
+    pkg.name = appName
+    fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n')
+
     console.log(chalk.gray('✨ Generate success!'))
     console.log(chalk.gray(`\nNext run:\n`))
     console.log(`  cd ${dirName}`)
@@ -64,6 +70,7 @@ const init = async () => {
     console.log(`  yarn dev`)
     console.log('\n');
   } catch (error) {
+    await $`rm -rf ./${dirName}`
     console.error(error)
     process.exit(1);
   }
