@@ -27,19 +27,30 @@ const appTypeChoices = templatesConfig.map(t => ({
 }))
 
 const init = async () => {
-  const response = await prompts([
+  const response = await prompts(
+    [
+      {
+        type: 'select',
+        name: 'templateType',
+        message: '请选择要创建的应用',
+        choices: appTypeChoices,
+      },
+      {
+        type: 'text',
+        name: 'appName',
+        message: '请输入应用名称',
+      },
+    ],
     {
-      type: 'select',
-      name: 'templateType',
-      message: '请选择要创建的应用',
-      choices: appTypeChoices,
+      onCancel: () => {
+        console.log('\n');
+        console.log(chalk.red(`✖ 操作已取消`))
+        console.log('\n');
+        process.exit()
+      },
     },
-    {
-      type: 'text',
-      name: 'appName',
-      message: '请输入应用名称',
-    },
-  ]);
+  );
+
   const { templateType, appName } = response
   const template = templatesConfig.find(t => t.type === templateType)
   const dirName = /-web$/.test(appName) ? appName : `${appName}-web`
@@ -85,7 +96,7 @@ const init = async () => {
     console.log('\n');
   } catch (error) {
     await $`rm -rf ./${dirName}`
-    console.error(error)
+    console.log(chalk.red(`✖ ${error.message}`))
     process.exit(1);
   }
 }
