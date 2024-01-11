@@ -1,11 +1,11 @@
 {
   "name": "create-happ",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "author": "Jin Cheng",
   "type": "module",
   "main": "index.js",
   "bin": {
-    "create-happ": "node index.js"
+    "create-happ": "index.js"
   },
   "license": "MIT",
   "dependencies": {
