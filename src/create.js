@@ -1,6 +1,8 @@
 import chalk from 'chalk';
 import { $ } from 'execa';
 import prompts from 'prompts';
+import fs from 'fs-extra';
+import path from 'path';
 
 const templatesConfig = [
   {
@@ -37,6 +39,18 @@ const init = async () => {
   const { appType, appName } = response
   const template = templatesConfig.find(t => t.key === appType)
   const dirName = /-web$/.test(appName) ? appName : `${appName}-web`
+  const projectPath = path.resolve(dirName);
+
+  if (
+    fs.existsSync(projectPath) &&
+    fs.statSync(projectPath).isDirectory() &&
+    fs.readdirSync(projectPath).length > 0
+  ) {
+    console.log('\n');
+    console.log(chalk.red('🙈 当前目录下已存在同名且非空项目'));
+    console.log('\n');
+    process.exit(1);
+  }
 
   console.log(chalk.gray('🚚 Generating...'))
 
@@ -48,7 +62,7 @@ const init = async () => {
     console.log(`  cd ${dirName}`)
     console.log(`  yarn install`)
     console.log(`  yarn dev`)
-    console.log()
+    console.log('\n');
   } catch (error) {
     console.error(error)
     process.exit(1);
