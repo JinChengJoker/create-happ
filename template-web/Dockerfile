@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package.json ./
 COPY yarn.lock ./
 RUN yarn config set registry https://registry.npmmirror.com
-RUN yarn
+RUN yarn install --ignore-optional
 COPY . /app
 RUN yarn $BUILD_COMMAND
 
